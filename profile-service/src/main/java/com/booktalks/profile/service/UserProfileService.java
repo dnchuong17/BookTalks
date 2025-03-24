@@ -31,8 +31,23 @@ public class UserProfileService {
                 () -> new RuntimeException("Profile not found"));
 
         return userProfileMapper.toUserProfileResponse(userProfile);
-
     }
 
+    public UserProfileResponse editProfile(long profileId, ProfileCreationRequest request) {
+        UserProfile userProfile = userProfileRepository.findById(profileId).orElseThrow(
+                () -> new RuntimeException("Profile not found"));
 
+        userProfileMapper.profileUpdate(userProfile, request);
+        userProfile = userProfileRepository.save(userProfile);
+
+        return userProfileMapper.toUserProfileResponse(userProfile);
+    }
+
+    public UserProfileResponse deleteProfile(long profileId) {
+        UserProfile userProfile = userProfileRepository.findById(profileId).orElseThrow(
+                () -> new RuntimeException("Profile not found"));
+
+        userProfileRepository.deleteById(profileId);
+        return userProfileMapper.toUserProfileResponse(userProfile);
+    }
 }

@@ -23,4 +23,15 @@ public class UserProfileController {
     UserProfileResponse getProfile(@PathVariable long id) {
         return userProfileService.getProfile(id);
     }
+
+    @PutMapping("/user/{id}")
+    UserProfileResponse editProfile(@PathVariable long id, @RequestBody ProfileCreationRequest request) {
+        return userProfileService.editProfile(id, request);
+    }
+
+    @DeleteMapping("/user/{id}")
+    UserProfileResponse deleteProfile(@PathVariable long id) {
+        return userProfileService.deleteProfile(id);
+    }
+
 }
